@@ -1,33 +1,27 @@
 package com.bradleykenny.personms.entity;
 
-import java.util.Date;
+import java.util.Random;
 
-public class Employee {
-    private String firstName;
-    private String lastName;
-    private Date dateOfBirth;
+public class Employee extends Person {
+    private String employeeId;
 
-    public String getFirstName() {
-        return firstName;
+    public Employee() {
+        Random r = new Random();
+        this.setEmployeeId(Integer.toString(r.nextInt(1000000)));
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public Employee(String firstName, String lastName) {
+        Random r = new Random();
+        this.setEmployeeId(Integer.toString(r.nextInt(1000000)));
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 }

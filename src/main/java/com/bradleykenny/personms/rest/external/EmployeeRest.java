@@ -1,5 +1,6 @@
 package com.bradleykenny.personms.rest.external;
 
+import com.bradleykenny.personms.dto.CreateEmployeeDto;
 import com.bradleykenny.personms.entity.Employee;
 import com.bradleykenny.personms.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class EmployeeRest {
     }
 
     @PostMapping
-    public ResponseEntity<Void> postEmployees() {
-        return ResponseEntity.status(200).build();
+    public ResponseEntity<String> postEmployees(@RequestBody CreateEmployeeDto createEmployeeDto) {
+        return ResponseEntity.ok(employeeService.setFirstName(createEmployeeDto.getFirstName()));
     }
 
     @GetMapping("/me")
