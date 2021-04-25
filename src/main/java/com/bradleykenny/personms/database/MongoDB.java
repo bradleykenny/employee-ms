@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MongoDB {
 
-    @Value("${something}")
+    @Value("${mongo.url}")
     private String DB_HOST;
 
     public static final int DB_PORT = 27017;
