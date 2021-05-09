@@ -6,27 +6,23 @@ import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class EmployeeService {
 
-    @Autowired
+    Employee employee;
     Datastore mongoDb;
 
-    Employee employee;
-
-
-    public EmployeeService(Employee employee) {
+    @Autowired
+    public EmployeeService(Employee employee, Datastore mongoDb) {
         this.employee = employee;
+        this.mongoDb = mongoDb;
     }
 
-    public String getFirstName() {
-        return this.employee.getFirstName();
-    }
-
-    public String getLastName() {
-        return this.employee.getLastName();
+    public Employee getEmployees(String id) {
+        return mongoDb.find(Employee.class).field("employeeId").equal(id).get();
     }
 
     public String createEmployee(CreateEmployeeDto dto) {
