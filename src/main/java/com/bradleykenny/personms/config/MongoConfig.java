@@ -22,22 +22,20 @@ public class MongoConfig {
 
     @Bean
     public Datastore datastore() {
-        System.out.println(DB_HOST);
-        MongoClientOptions mongoOptions = MongoClientOptions.builder()
+        MongoClientOptions.Builder mongoOptions = MongoClientOptions.builder()
                 .socketTimeout(60000) // Wait 1m for a query to finish, https://jira.mongodb.org/browse/JAVA-1076
                 .connectTimeout(15000) // Try the initial connection for 15s, http://blog.mongolab.com/2013/10/do-you-want-a-timeout/
                 .maxConnectionIdleTime(600000) // Keep idle connections for 10m, so we discard failed connections quickly
-                .readPreference(ReadPreference.primaryPreferred()) // Read from the primary, if not available use a secondary
-                .build();
+                .readPreference(ReadPreference.primaryPreferred()); // Read from the primary, if not available use a secondary
 
-        MongoClientURI uri = new MongoClientURI(DB_HOST);
+        MongoClientURI uri = new MongoClientURI(DB_HOST, mongoOptions);
         MongoClient mongoClient = new MongoClient(uri);
 
         var datastore = new Morphia().createDatastore(mongoClient, DB_NAME);
         datastore.ensureIndexes();
         datastore.ensureCaps();
 
-        System.out.println("Connection to database '" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "' initialized");
+        System.out.println("Connection to database '" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "' initialised");
 
         return datastore;
     }
