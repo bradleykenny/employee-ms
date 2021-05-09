@@ -21,8 +21,8 @@ public class EmployeeService {
         this.mongoDb = mongoDb;
     }
 
-    public Employee getEmployees(String id) {
-        return mongoDb.find(Employee.class).field("employeeId").equal(id).get();
+    public Employee getEmployeeById(String id) {
+        return mongoDb.find(Employee.class).field("_id").equal(id).get();
     }
 
     public String createEmployee(CreateEmployeeDto dto) {

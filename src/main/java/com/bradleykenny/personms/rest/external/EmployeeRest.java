@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/external/employees")
+@RequestMapping("/api/v1/external/employees")
 public class EmployeeRest {
 
     EmployeeService employeeService;
@@ -20,8 +20,8 @@ public class EmployeeRest {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployees(@PathVariable("id") String employeeId) {
-        return ResponseEntity.ok(employeeService.getEmployees(employeeId));
+    public ResponseEntity<Employee> getEmployee(@PathVariable("id") String employeeId) {
+        return ResponseEntity.ok(employeeService.getEmployeeById(employeeId));
     }
 
     @PostMapping

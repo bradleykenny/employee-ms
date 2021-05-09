@@ -1,9 +1,14 @@
 package com.bradleykenny.personms.entity;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
 import java.util.Random;
 
+@Entity
 public class Employee extends Person {
-    private String employeeId;
+
+    @Id String employeeId;
 
     public Employee() {
         Random r = new Random();
