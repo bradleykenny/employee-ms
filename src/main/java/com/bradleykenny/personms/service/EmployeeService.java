@@ -1,19 +1,24 @@
 package com.bradleykenny.personms.service;
 
-import com.bradleykenny.personms.database.MongoDB;
+import com.bradleykenny.personms.dto.CreateEmployeeDto;
 import com.bradleykenny.personms.entity.Employee;
-import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class EmployeeService {
 
-    Employee employee;
-    MongoDB mongoDB;
+    @Autowired
+    Datastore mongoDb;
 
-    public EmployeeService(Employee employee, MongoDB mongoDB) {
+    Employee employee;
+
+
+    public EmployeeService(Employee employee) {
         this.employee = employee;
-        this.mongoDB = mongoDB;
     }
 
     public String getFirstName() {
@@ -24,13 +29,18 @@ public class EmployeeService {
         return this.employee.getLastName();
     }
 
-    public String setFirstName(String name) {
-        var test = mongoDB.getDatabase();
-        Employee emp = new Employee();
-        emp.setFirstName(name);
-        test.save(emp);
+    public String createEmployee(CreateEmployeeDto dto) {
+        var mongo = mongoDb;
 
-        return this.employee.getFirstName();
+        Employee emp = new Employee();
+        String id = UUID.randomUUID().toString();
+        emp.setEmployeeId(id);
+        emp.setFirstName(dto.getFirstName());
+        emp.setLastName(dto.getLastName());
+
+        mongo.save(emp);
+
+        return String.format("%s: %s %s", id, dto.getFirstName(), dto.getLastName());
     }
 
 }

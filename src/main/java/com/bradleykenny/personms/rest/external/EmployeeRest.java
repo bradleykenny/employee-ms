@@ -32,7 +32,7 @@ public class EmployeeRest {
 
     @PostMapping
     public ResponseEntity<String> postEmployees(@RequestBody CreateEmployeeDto createEmployeeDto) {
-        return ResponseEntity.ok(employeeService.setFirstName(createEmployeeDto.getFirstName()));
+        return ResponseEntity.ok(employeeService.createEmployee(createEmployeeDto));
     }
 
     @GetMapping("/me")
