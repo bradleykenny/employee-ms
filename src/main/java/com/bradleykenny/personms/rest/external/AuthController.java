@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+
 @RestController
 @RequestMapping("/api/v1/external/auth")
 public class AuthController {
@@ -20,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> getEmployee(LoginRequest request) {
+    public ResponseEntity<String> getEmployee(@RequestBody LoginRequest request) throws GeneralSecurityException, UnsupportedEncodingException {
         return ResponseEntity.ok(authService.login(request));
     }
 }

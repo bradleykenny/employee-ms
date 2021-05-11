@@ -38,3 +38,4 @@ out/
 
 ### Project files ###
 /src/main/resources/mongo.properties
+/src/main/resources/encryption.properties
