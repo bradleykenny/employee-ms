@@ -13,28 +13,26 @@ import java.util.UUID;
 public class EmployeeService {
 
     Employee employee;
-    Datastore mongoDb;
+    Datastore datastore;
 
     @Autowired
-    public EmployeeService(Employee employee, Datastore mongoDb) {
+    public EmployeeService(Employee employee, Datastore datastore) {
         this.employee = employee;
-        this.mongoDb = mongoDb;
+        this.datastore = datastore;
     }
 
     public Employee getEmployeeById(String id) {
-        return mongoDb.find(Employee.class).field("_id").equal(id).get();
+        return datastore.find(Employee.class).field("_id").equal(id).get();
     }
 
     public String createEmployee(CreateEmployeeDto dto) {
-        var mongo = mongoDb;
-
         Employee emp = new Employee();
         String id = UUID.randomUUID().toString();
         emp.setEmployeeId(id);
         emp.setFirstName(dto.getFirstName());
         emp.setLastName(dto.getLastName());
 
-        mongo.save(emp);
+        datastore.save(emp);
 
         return String.format("%s: %s %s", id, dto.getFirstName(), dto.getLastName());
     }
