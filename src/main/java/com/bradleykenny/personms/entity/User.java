@@ -2,7 +2,6 @@ package com.bradleykenny.personms.entity;
 
 import org.mongodb.morphia.annotations.Id;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class User {
