@@ -3,6 +3,7 @@ package com.bradleykenny.personms.repository;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
@@ -12,7 +13,11 @@ public class BasicRepository<T> implements CrudRepository<T, String> {
     @Autowired
     Datastore datastore;
 
-    private T t;
+    private final Class<T> genericClassType;
+
+    public BasicRepository() {
+        this.genericClassType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BasicRepository.class);
+    }
 
     @Override
     public <S extends T> S save(S entity) {
@@ -28,13 +33,13 @@ public class BasicRepository<T> implements CrudRepository<T, String> {
 
     @Override
     public Optional<T> findById(String s) {
-        T queryResult = (T) datastore.find(t.getClass()).field("_id").equal(s).get();
+        T queryResult = (T) datastore.find(this.genericClassType).field("_id").equal(s).get();
         return Optional.of(queryResult);
     }
 
     @Override
     public boolean existsById(String s) {
-        Query queryResult = datastore.find(t.getClass()).field("_id").equal(s);
+        Query queryResult = datastore.find(this.genericClassType).field("_id").equal(s);
         return queryResult.count() != 0 ? true : false;
     }
 
