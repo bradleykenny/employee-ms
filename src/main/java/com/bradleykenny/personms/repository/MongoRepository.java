@@ -8,15 +8,15 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public class BasicRepository<T> implements CrudRepository<T, String> {
+public class MongoRepository<T> implements CrudRepository<T, String> {
 
     @Autowired
     Datastore datastore;
 
     private final Class<T> genericClassType;
 
-    public BasicRepository() {
-        this.genericClassType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), BasicRepository.class);
+    public MongoRepository() {
+        this.genericClassType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), MongoRepository.class);
     }
 
     @Override

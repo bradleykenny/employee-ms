@@ -21,6 +21,11 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+    /**
+     * Finds an employee by their ID.
+     * @param id the Employee's `_id`.
+     * @return the Employee object if one matches the `id`, otherwise `null`.
+     */
     public Employee getEmployeeById(String id) {
         Optional<Employee> opt = employeeRepository.findById(id);
         if (opt.isPresent()) {
@@ -28,8 +33,14 @@ public class EmployeeService {
         } return null;
     }
 
+    /**
+     * Creates a new Employee and then saves it in the DB.
+     * @param dto the request DTO that will be used to base the new DB entry off of.
+     * @return a string describing the created Employee entry.
+     */
     public String createEmployee(CreateEmployeeDto dto) {
         Employee emp = new Employee();
+
         String id = UUID.randomUUID().toString();
         emp.setEmployeeId(id);
         emp.setFirstName(dto.getFirstName());
@@ -37,7 +48,7 @@ public class EmployeeService {
 
         employeeRepository.save(emp);
 
-        return String.format("%s: %s %s", id, dto.getFirstName(), dto.getLastName());
+        return emp.toString();
     }
 
 }
