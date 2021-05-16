@@ -33,8 +33,10 @@ public class BasicRepository<T> implements CrudRepository<T, String> {
 
     @Override
     public Optional<T> findById(String s) {
-        T queryResult = (T) datastore.find(this.genericClassType).field("_id").equal(s).get();
-        return Optional.of(queryResult);
+        T queryResult = datastore.find(this.genericClassType).field("_id").equal(s).get();
+        if (queryResult == null) {
+            return Optional.empty();
+        } return Optional.of(queryResult);
     }
 
     @Override

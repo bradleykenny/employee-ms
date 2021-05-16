@@ -24,7 +24,7 @@ public class EmployeeService {
     public Employee getEmployeeById(String id) {
         Optional<Employee> opt = employeeRepository.findById(id);
         if (opt.isPresent()) {
-            opt.get();
+            return opt.get();
         } return null;
     }
 
