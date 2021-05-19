@@ -2,6 +2,7 @@ package com.bradleykenny.personms.rest.external;
 
 import com.bradleykenny.personms.dto.request.LoginRequest;
 import com.bradleykenny.personms.entity.Employee;
+import com.bradleykenny.personms.entity.User;
 import com.bradleykenny.personms.service.AuthService;
 import com.bradleykenny.personms.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,5 @@ public class AuthController {
     public ResponseEntity<String> getEmployee(@RequestBody LoginRequest request) throws GeneralSecurityException, UnsupportedEncodingException {
         return ResponseEntity.ok(authService.login(request));
     }
+
 }
