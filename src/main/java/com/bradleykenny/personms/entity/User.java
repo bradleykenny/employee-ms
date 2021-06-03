@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class User {
 
-    @Id String userId;
+    @Id private String userId;
     private String username;
     private String password;
 

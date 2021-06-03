@@ -12,7 +12,8 @@ import java.util.Random;
 @Entity
 public class Employee extends Person {
 
-    @Id String employeeId;
+    @Id
+    private String id;
     private String password;
 
     @Autowired
@@ -20,24 +21,24 @@ public class Employee extends Person {
 
     public Employee() {
         Random r = new Random();
-        this.setEmployeeId(Integer.toString(r.nextInt(1000000)));
+        this.setId(Integer.toString(r.nextInt(1000000)));
     }
 
     public Employee(String firstName, String lastName, String password)
     throws GeneralSecurityException, UnsupportedEncodingException {
         Random r = new Random();
-        this.setEmployeeId(Integer.toString(r.nextInt(1000000)));
+        this.setId(Integer.toString(r.nextInt(1000000)));
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setPassword(encryptionService.encrypt(password));
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getId() {
+        return id;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -51,7 +52,7 @@ public class Employee extends Person {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("employee={");
-        sb.append("id=").append(employeeId);
+        sb.append("id=").append(id);
         sb.append(", firstName=").append(firstName);
         sb.append(", lastName=").append(lastName);
         sb.append("}");

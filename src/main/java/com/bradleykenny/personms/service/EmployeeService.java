@@ -48,7 +48,7 @@ public class EmployeeService {
         Employee emp = new Employee();
 
         String id = UUID.randomUUID().toString();
-        emp.setEmployeeId(id);
+        emp.setId(id);
         emp.setFirstName(dto.getFirstName());
         emp.setLastName(dto.getLastName());
         emp.setPassword(encryptionService.encrypt(dto.getPassword()));
